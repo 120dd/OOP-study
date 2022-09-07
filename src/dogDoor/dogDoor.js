@@ -4,7 +4,7 @@ export class DogDoor {
     #allowedSounds = [];
     
     openWithBark(sound){
-        if (!this.compareSound(sound)){
+        if (!this.isAllowedSound(sound)){
             console.log('소리가 다릅니다');
             return;
         }
@@ -14,6 +14,10 @@ export class DogDoor {
     open = () => {
         this.#Open = true;
         console.log('문이 열렸습니다');
+        this.#closeAfterCloseTime();
+    }
+    
+    #closeAfterCloseTime(){
         setTimeout(() => {
             if (this.isOpen()) {
                 this.close();
@@ -36,7 +40,7 @@ export class DogDoor {
         this.#closeTime = time;
     }
     
-    compareSound(sound) {
+    isAllowedSound(sound) {
         console.log(sound);
         return !!this.#allowedSounds.find(allowedSound => allowedSound.getSound() === sound.getSound());
     }
